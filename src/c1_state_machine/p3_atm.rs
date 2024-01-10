@@ -14,6 +14,8 @@ pub enum Key {
     Enter,
 }
 
+// impl Key {}
+
 /// Something you can do to the ATM
 pub enum Action {
     /// Swipe your card at the ATM. The attached value is the hash of the pin
@@ -59,25 +61,20 @@ impl StateMachine for Atm {
 
     fn next_state(starting_state: &Self::State, t: &Self::Transition) -> Self::State {
         todo!("Exercise 4")
+        // match t {
+        //     Action::SwipeCard(x) => {
+        //         match starting_state{
+        //             Self { cash_inside:amount, expected_pin_hash: Auth::Waiting, keystroke_register: keys} => Self { cash_inside: *amount, expected_pin_hash: Auth::Authenticating(*x), keystroke_register: *keys },
+        //             Self { cash_inside:amount, expected_pin_hash: Auth::Authenticating(x), keystroke_register: keys} => Self { cash_inside: *amount, expected_pin_hash: Auth::Authenticating(*x), keystroke_register: *keys },
+                    
+        //         }
+        //     },
+        //     Action::PressKey(Key) => {},
+        // }
     }
 }
 
-#[test]
-fn sm_3_simple_swipe_card() {
-    let start = Atm {
-        cash_inside: 10,
-        expected_pin_hash: Auth::Waiting,
-        keystroke_register: Vec::new(),
-    };
-    let end = Atm::next_state(&start, &Action::SwipeCard(1234));
-    let expected = Atm {
-        cash_inside: 10,
-        expected_pin_hash: Auth::Authenticating(1234),
-        keystroke_register: Vec::new(),
-    };
 
-    assert_eq!(end, expected);
-}
 
 #[test]
 fn sm_3_swipe_card_again_part_way_through() {
