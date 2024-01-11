@@ -25,12 +25,14 @@ pub struct Header {
 impl Header {
     /// Returns a new valid genesis header.
     fn genesis() -> Self {
-        todo!("Exercise 1")
+        // todo!("Exercise 1")
+        Self { parent: 0, height: 0, extrinsics_root: (), state_root: (), consensus_digest: () }
     }
 
     /// Create and return a valid child header.
     fn child(&self) -> Self {
-        todo!("Exercise 2")
+        // todo!("Exercise 2")
+        Self { parent: hash(self), height: self.height + 1, extrinsics_root: (), state_root: (), consensus_digest: () }
     }
 
     /// Verify that all the given headers form a valid chain from this header to the tip.
@@ -38,7 +40,11 @@ impl Header {
     /// This method may assume that the block on which it is called is valid, but it
     /// must verify all of the blocks in the slice;
     fn verify_sub_chain(&self, chain: &[Header]) -> bool {
-        todo!("Exercise 3")
+        // todo!("Exercise 3")
+        for h in chain.iter(){
+            return h.child().height == h.height+1 && h.child().parent == hash(&h.parent)
+        }
+        false
     }
 }
 
@@ -46,14 +52,26 @@ impl Header {
 
 /// Build and return a valid chain with exactly five blocks including the genesis block.
 fn build_valid_chain_length_5() -> Vec<Header> {
-    todo!("Exercise 4")
+    // todo!("Exercise 4")
+    let mut result_blocks = Vec::new();
+    for h in 0..=5{
+        result_blocks.push(Header { parent: hash(&h), height: h, extrinsics_root: (), state_root: (), consensus_digest: () }) //???
+    }
+    
+    result_blocks
 }
 
 /// Build and return a chain with at least three headers.
 /// The chain should start with a proper genesis header,
 /// but the entire chain should NOT be valid.
 fn build_an_invalid_chain() -> Vec<Header> {
-    todo!("Exercise 5")
+    // todo!("Exercise 5")
+    let mut result_blocks = Vec::new();
+    for h in 0..=5{
+        result_blocks.push(Header { parent: h, height: h, extrinsics_root: (), state_root: (), consensus_digest: () })
+    }
+    
+    result_blocks
 }
 
 // To run these tests: `cargo test bc_1
